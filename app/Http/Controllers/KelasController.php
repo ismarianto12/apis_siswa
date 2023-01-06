@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Traits\Oaweb;
-use App\Models\Mapel;
+use App\Models\Kelas;
 use Illuminate\Http\Request;
 
-class Mapelcontroller extends Controller
+class Kelascontroller extends Controller
 {
     public function __construct(Request $request)
     {
@@ -15,7 +15,7 @@ class Mapelcontroller extends Controller
     public function index()
     {
         try {
-            $data = Mapel::get();
+            $data = Kelas::get();
             return response()->json($data);
         } catch (\Throwable $th) {
             throw $th;
@@ -75,7 +75,7 @@ class Mapelcontroller extends Controller
     {
         try {
 
-            $data = Mapel::where('id', $id)->get();
+            $data = Kelas::where('id', $id)->get();
             if ($data->count() > 0) {
                 return response()->json([
                     'data' => $data,
@@ -93,13 +93,13 @@ class Mapelcontroller extends Controller
     {
 
         try {
-            $Mapel = new Mapel;
-            // $Mapel->id_pegawai = $this->request->id_pegawai;
-            $Mapel->kode = $this->request->kode;
-            $Mapel->mapel = $this->request->mapel;
-            $Mapel->kkm = $this->request->kkm;
-            $Mapel->kurikulum = $this->request->kurikulum;
-            $Mapel->save();
+            $Kelas = new Kelas;
+            // $Kelas->id_pegawai = $this->request->id_pegawai;
+            $Kelas->kode = $this->request->kode;
+            $Kelas->Kelas = $this->request->Kelas;
+            $Kelas->kkm = $this->request->kkm;
+            $Kelas->kurikulum = $this->request->kurikulum;
+            $Kelas->save();
             return response()->json([
                 'status' => 'ok',
                 'msg' => 'data berhasil di simpan'
@@ -112,17 +112,17 @@ class Mapelcontroller extends Controller
     public function update($id)
     {
         try {
-            $Mapel = Mapel::find($id);
-            $Mapel->nama =  $this->request->nama;
-            $Mapel->nisn =  $this->request->nisn;
-            $Mapel->jk =  $this->request->jk;
-            $Mapel->alamat =  $this->request->alamat;
-            $Mapel->ttl =  $this->request->ttl;
-            $Mapel->kelas =  $this->request->kelas;
-            $Mapel->tahun_masuk =  $this->request->tahun_masuk;
-            $Mapel->nama_ibu =  $this->request->nama_ibu;
-            $Mapel->nama_ayah =  $this->request->nama_ayah;
-            $Mapel->save();
+            $Kelas = Kelas::find($id);
+            $Kelas->nama =  $this->request->nama;
+            $Kelas->nisn =  $this->request->nisn;
+            $Kelas->jk =  $this->request->jk;
+            $Kelas->alamat =  $this->request->alamat;
+            $Kelas->ttl =  $this->request->ttl;
+            $Kelas->kelas =  $this->request->kelas;
+            $Kelas->tahun_masuk =  $this->request->tahun_masuk;
+            $Kelas->nama_ibu =  $this->request->nama_ibu;
+            $Kelas->nama_ayah =  $this->request->nama_ayah;
+            $Kelas->save();
             return response()->json([
                 'status' => 'ok',
                 'msg' => 'data berhasil di simpan'
@@ -136,8 +136,8 @@ class Mapelcontroller extends Controller
     public function delete($id)
     {
         try {
-            $Mapel = Mapel::find($id);
-            $Mapel->delete();
+            $Kelas = Kelas::find($id);
+            $Kelas->delete();
             return response()->json([
                 'status' => 'ok',
                 'msg' => 'data berhasil di hapus'

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Traits\Oaweb;
 use App\Models\OpeningNew;
 use App\Models\Login;
+use Illuminate\Hashing\BcryptHasher;
 use Illuminate\Http\Request;
 
 class Logincontroller extends Controller
@@ -12,6 +13,33 @@ class Logincontroller extends Controller
     public function __construct(Request $request)
     {
         $this->request = $request;
+    }
+
+    public function accesslogin()
+    {
+        $username = $this->request->username;
+        $password = $this->request->password;
+        $data = Login::where([
+            'username' => $username,
+            'password' => $password
+        ])->get();
+
+        if ($data->count() > 0) {
+            $Resp = [
+                'username' => $data->first()->username,
+                'nama' => $data->first()->nama,
+                'token' => app('hash')->make($password),
+                'level' => $data->first()->level
+            ];
+            return response()->json($Resp);
+        } else {
+            return response()->json([
+                'status' => 'failed',
+                'messages' => 'username dan password salah',
+                'token' => $password,
+                'data' => $data,
+            ], 400);
+        }
     }
     public function all()
     {

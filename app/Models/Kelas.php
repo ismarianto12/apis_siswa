@@ -6,10 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 use Illuminate\Support\Facades\DB;
 
-class Pegawai extends model
+class Kelas extends model
 {
 
-    protected $table = 'pegawai';
+    protected $table = 'kelas';
     protected $guarded = [];
     public $incrementing = false;
     public $timestamps = false;

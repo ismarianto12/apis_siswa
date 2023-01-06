@@ -42,15 +42,26 @@ $router->group(['prefix' => 'v1'], function () use ($router) {
 
     $router->get('siswa', 'SiswaController@index');
     $router->post('siswa/insert', 'SiswaController@store');
-    $router->post('siswa/update/{params}', 'SiswaController@update');
+    $router->post('siswa/update/{id}', 'SiswaController@update');
     $router->get('siswa/show/{id}', 'SiswaController@show');
     $router->post('siswa/delete/{id}', 'SiswaController@delete');
+
+
+
+    $router->get('nilai', 'Mapelcontroller@nilai');
 
     $router->get('mapel', 'Mapelcontroller@index');
     $router->post('mapel/insert', 'Mapelcontroller@store');
     $router->post('mapel/update/{params}', 'Mapelcontroller@update');
     $router->put('mapel/show/{params}', 'Mapelcontroller@show');
     $router->post('mapel/delete/{params}', 'Mapelcontroller@delete');
+
+
+    $router->get('kelas', 'KelasController@index');
+    $router->post('kelas/insert', 'KelasController@store');
+    $router->post('kelas/update/{params}', 'KelasController@update');
+    $router->put('kelas/show/{params}', 'KelasController@show');
+    $router->post('kelas/delete/{params}', 'KelasController@delete');
 
 
     $router->get('pegawai', 'PegawaiController@index');
@@ -60,9 +71,20 @@ $router->group(['prefix' => 'v1'], function () use ($router) {
     $router->post('pegawai/delete/{params}', 'PegawaiController@delete');
 
 
-    $router->get('Login', 'LoginController@index');
+    $router->get('raport', 'RaportController@index');
+    $router->post('raport/save', 'RaportController@save');
+    $router->post('raport/update/{id}', 'RaportController@update');
+    $router->get('raport/show/{id}', 'RaportController@show');
+    $router->post('raport/delete/{id}', 'RaportController@delete');
+
+
+    $router->post('login', 'LoginController@accesslogin');
+
     $router->post('Login/insert', 'LoginController@store');
     $router->post('Login/update/{params}', 'LoginController@update');
     $router->put('Login/show/{params}', 'LoginController@show');
     $router->post('Login/delete/{params}', 'LoginController@delete');
+
+
+    // get master data
 });

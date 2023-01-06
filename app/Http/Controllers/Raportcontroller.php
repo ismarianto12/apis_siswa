@@ -5,9 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Traits\Oaweb;
 use App\Models\OpeningNew;
 use App\Models\Pegawai;
+use App\Models\Penilaian;
 use Illuminate\Http\Request;
 
-class PegawaiController extends Controller
+class Raportcontroller extends Controller
 {
     public function __construct(Request $request)
     {
@@ -25,39 +26,40 @@ class PegawaiController extends Controller
 
     public function show($id)
     {
-        try {
 
-            $data = Pegawai::where('id', $id)->get();
-            if ($data->count() > 0) {
+            $data = Penilaian::select('*')
+                ->join('mapel', 'mapel.id', '=', 'penilaian.id_mapel', 'left')
+                ->join('siswa', 'siswa.id', '=', 'penilaian.id_siswa', 'left')
+                ->where('penilaian.id_siswa', $id)->get();
+
+            // if ($data->count() > 0) {
                 return response()->json([
                     'data' => $data,
                 ]);
-            } else {
-                return abort(404);
-            }
-        } catch (\Throwable $th) {
-        }
+            // } else {
+            //     return abort(404);
+            // }
+
     }
 
 
 
-    public function store()
+    public function save()
     {
 
         try {
-            $Pegawai = new Pegawai;
-            $Pegawai->nama =  $this->request->nama;
-            $Pegawai->nisn =  $this->request->nisn;
-            $Pegawai->jk =  $this->request->jk;
-            $Pegawai->alamat =  $this->request->alamat;
-            $Pegawai->ttl =  $this->request->ttl;
-            $Pegawai->kelas =  $this->request->kelas;
-            $Pegawai->tahun_masuk =  $this->request->tahun_masuk;
-            $Pegawai->nama_ibu =  $this->request->nama_ibu;
-            $Pegawai->nama_ayah =  $this->request->nama_ayah;
-            $Pegawai->save();
+            $data = new Penilaian;
+            $data->id_siswa = $this->request->id_siswa;
+            $data->id_mapel = $this->request->mapel;
+            $data->nilai = $this->request->nilai;
+            $data->bobot = $this->request->bobot;
+            $data->semester = $this->request->semester;
+            $data->nilai_tugas = $this->request->nilai_tugas;
+            $data->nilai_presensi = $this->request->nilai_presensi;
+
+            $data->save();
             return response()->json([
-                'status' => 'ok',
+                'nama' => $data->id_siswa,
                 'msg' => 'data berhasil di simpan'
             ]);
         } catch (\Throwable $th) {

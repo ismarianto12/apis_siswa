@@ -77,6 +77,7 @@ class Siswacontroller extends Controller
             $siswa->nama_ibu =  $this->request->nama_ibu;
             $siswa->nama_ayah =  $this->request->nama_ayah;
             $siswa->save();
+
             return response()->json([
                 'status' => 'ok',
                 'msg' => 'data berhasil di simpan'
